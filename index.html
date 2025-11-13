@@ -1,10 +1,216 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title> Pagina de prueba Alfabetismo Web</title>
-    </head>
-    <body>
-        <h1>Alfabetismo Web</h1>
-        <p>Lorem Impus is simply dummy</p>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización del Tiempo - Alfabetismo Web</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Visualización del Tiempo Inspirada en Wajcman
+        // Representa la fragmentación, sincronización y múltiples temporalidades del tiempo digital
+
+        let particles = [];
+        let waves = [];
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            // Crear partículas iniciales
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function draw() {
+            // Obtener tiempo actual
+            let s = second();
+            let m = minute();
+            let h = hour();
+            let d = day();
+            let mo = month();
+            let y = year();
+
+            // FONDO: Cambia gradualmente según la hora del día (ciclo de 24h)
+            let timeOfDay = (h * 60 + m) / 1440; // 0-1 para el día completo
+            let bgColor1 = lerpColor(
+                color(10, 10, 40),    // Medianoche
+                color(255, 180, 100), // Mediodía
+                sin(timeOfDay * TWO_PI) * 0.5 + 0.5
+            );
+            let bgColor2 = lerpColor(
+                color(0, 0, 20),
+                color(100, 150, 200),
+                cos(timeOfDay * TWO_PI) * 0.5 + 0.5
+            );
+
+            // Gradiente de fondo
+            for (let y = 0; y < height; y++) {
+                let inter = map(y, 0, height, 0, 1);
+                let c = lerpColor(bgColor1, bgColor2, inter);
+                stroke(c);
+                line(0, y, width, y);
+            }
+
+            translate(width / 2, height / 2);
+
+            // MES: Determina la paleta de colores (estaciones)
+            let hueBase = map(mo, 1, 12, 0, 360);
+            colorMode(HSB, 360, 100, 100, 100);
+
+            // DÍA DEL MES: Número de capas de círculos concéntricos
+            let layers = map(d, 1, 31, 3, 12);
+
+            // Dibujar capas concéntricas (DÍA + HORA)
+            for (let i = 0; i < layers; i++) {
+                let radius = map(i, 0, layers, 50, min(width, height) * 0.4);
+                let rotation = (h / 24) * TWO_PI + (i * 0.1);
+                let alpha = map(i, 0, layers, 80, 20);
+
+                noFill();
+                stroke(hueBase + i * 10, 70, 90, alpha);
+                strokeWeight(2);
+
+                push();
+                rotate(rotation);
+
+                // Círculo ondulado según MINUTOS
+                beginShape();
+                for (let a = 0; a < TWO_PI; a += 0.1) {
+                    let wave = sin(a * 3 + (m / 60) * TWO_PI) * 10;
+                    let r = radius + wave;
+                    let x = cos(a) * r;
+                    let y = sin(a) * r;
+                    vertex(x, y);
+                }
+                endShape(CLOSE);
+                pop();
+            }
+
+            // MINUTOS: Ondas radiales
+            for (let i = 0; i < 12; i++) {
+                let angle = (i / 12) * TWO_PI + (m / 60) * TWO_PI;
+                let innerR = 60;
+                let outerR = min(width, height) * 0.45;
+
+                let alpha = map(sin((m / 60) * TWO_PI + i), -1, 1, 10, 50);
+                stroke(hueBase + 180, 60, 80, alpha);
+                strokeWeight(1);
+
+                line(
+                    cos(angle) * innerR,
+                    sin(angle) * innerR,
+                    cos(angle) * outerR,
+                    sin(angle) * outerR
+                );
+            }
+
+            // SEGUNDOS: Anillo pulsante central
+            let secondAngle = (s / 60) * TWO_PI - HALF_PI;
+            let pulseRadius = 40 + sin((s / 60) * TWO_PI * 4) * 10;
+
+            noStroke();
+            fill(hueBase, 80, 100, 60);
+            circle(0, 0, pulseRadius * 2);
+
+            // Indicador de segundos (sin ser manecilla tradicional)
+            for (let i = 0; i < 5; i++) {
+                let r = pulseRadius + i * 15;
+                let x = cos(secondAngle) * r;
+                let y = sin(secondAngle) * r;
+                let size = map(i, 0, 5, 15, 3);
+
+                fill(hueBase + 60, 90, 100, 80 - i * 15);
+                circle(x, y, size);
+            }
+
+            // PARTÍCULAS: Representan la fragmentación del tiempo
+            // Cantidad basada en el segundo actual
+            if (frameCount % 2 === 0 && particles.length < s + 30) {
+                particles.push(new Particle());
+            }
+
+            while (particles.length > s + 30) {
+                particles.shift();
+            }
+
+            // Actualizar y dibujar partículas
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update(s, m, h);
+                particles[i].display(hueBase);
+
+                if (particles[i].isDead()) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            // HORA: Espirales que rotan
+            let spiralCount = map(h % 12, 0, 12, 3, 12);
+            for (let i = 0; i < spiralCount; i++) {
+                let angle = (i / spiralCount) * TWO_PI + (h / 12) * TWO_PI;
+                let distance = 150 + sin(frameCount * 0.01 + i) * 30;
+
+                let x = cos(angle) * distance;
+                let y = sin(angle) * distance;
+
+                noStroke();
+                fill(hueBase + i * 30, 70, 90, 40);
+                circle(x, y, 20);
+            }
+
+            colorMode(RGB, 255);
+        }
+
+        // Clase Partícula: Representa la fragmentación del tiempo digital
+        class Particle {
+            constructor() {
+                this.angle = random(TWO_PI);
+                this.radius = random(100, min(width, height) * 0.5);
+                this.speed = random(0.001, 0.01);
+                this.size = random(2, 8);
+                this.life = 255;
+                this.orbitSpeed = random(-0.02, 0.02);
+            }
+
+            update(s, m, h) {
+                // Orbitar alrededor del centro
+                this.angle += this.orbitSpeed;
+
+                // Pulsación basada en segundos
+                this.radius += sin((s / 60) * TWO_PI * 2 + this.angle) * 0.5;
+
+                // Fade out
+                this.life -= 0.5;
+            }
+
+            display(hueBase) {
+                let x = cos(this.angle) * this.radius;
+                let y = sin(this.angle) * this.radius;
+
+                colorMode(HSB, 360, 100, 100, 255);
+                noStroke();
+                fill(hueBase + this.angle * 50, 80, 100, this.life);
+                circle(x, y, this.size);
+                colorMode(RGB, 255);
+            }
+
+            isDead() {
+                return this.life <= 0;
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
 </html>
