@@ -1,10 +1,360 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title> Pagina de prueba Alfabetismo Web</title>
-    </head>
-    <body>
-        <h1>Alfabetismo Web</h1>
-        <p>Lorem Impus is simply dummy</p>
-    </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La degradación del plástico</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@400;700&family=Unbounded:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playwrite+US+Modern:wght@100..400&family=Rubik+Puddles&display=swap" rel="stylesheet">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playwrite+US+Modern:wght@100..400&family=Rubik+Puddles&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold fira-code" href="#">Plástico</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#impacto">Impacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="#formulario">Recicla</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SECCIÓN PRINCIPAL -->
+  <section id="inicio">
+    <div class="container text-center text-white">
+      <h2>La degradación del plástico</h2>
+      <h1>Evita que se contamine la página</h1>
+    </div>
+  </section>
+
+  <!-- SECCIÓN IMPACTO -->
+  <section id="impacto" class="text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-4">El ciclo del plástico</h2>
+      <p class="mb-4">
+        El plástico comienza como un material útil, pero su degradación tarda cientos de años. 
+      </p>
+      <p><em>No deslices o contaminas más!</em></p>
+    </div>
+  </section>
+
+<section id="columna-doble" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">El plástico y su descomposición</h2>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <p>
+          El principal problema del plástico es su larga duración y resistencia a la degradación, que puede llevar hasta <strong>500 años</strong>. Esto genera una contaminación significativa: 
+
+        <p>Contaminación terrestre y marina: Millones de toneladas llegan a los océanos anualmente, afectando la vida marina y los ecosistemas.</p>
+
+<p><strong>Microplásticos:</strong> La descomposición genera microplásticos que entran en la cadena alimentaria.</p>
+
+<p><strong>Emisiones de gases de efecto invernadero:</strong> Algunos plásticos liberan metano y otros gases al degradarse en el ambiente. </p>
+
+Esta página está diseñada a mostrar aceleradamente el proceso del plástico como contaminante. El cuál, poco a poco no va a dejar que se pueda hacer nada. <strong>No hay vuelta atrás a lo que ya se hizo.</strong>
+        </p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <p>
+          Tiempo para descomponerse:
+
+          <p><strong>Cartón</strong> 5 años</p>
+          <p><strong>Caucho</strong> 40 a 80 años</p>
+          <p><strong>Aluminio</strong> 80 a 200 años </p>
+          <p><strong>Botellas plásticas</strong> 450 a 1000 años </p>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- FORMULARIO -->
+  <section id="formulario" class="bg-light text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-4">Dona a la causa</h2>
+      <p>Hagamos un cambio en la manera en que consumimos</p>
+      <form id="recycleForm" class="w-50 mx-auto">
+        <input type="text" class="form-control mb-3" placeholder="Nombre">
+        <textarea class="form-control mb-3" placeholder="¿Cuánto vas a donar?"></textarea>
+        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+      </form>
+      <p class="mt-3 text-muted">Pero... ¿te dejará el plástico?</p>
+    </div>
+  </section>
+
+  <!-- CONTENEDOR DE BASURA (se acumulan aquí) -->
+  <div id="papelera"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p class="mb-0"> Degradación del plástico </p>
+      <p> Nicolás Sotelo, Paula Ojeda e Ian Toledo</p>
+      <p>2025</p>
+  </footer>
+
+  <!-- OVERLAY + Scripts -->
+  <div class="blur-overlay" aria-hidden="true"></div>
+
+  <!-- Bootstrap + JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script principal: basura + blur progresivo + popups -->
+  <script>
+  (function () {
+    const basura = ['botella.png', 'bolsa.png', 'vaso.png', 'tapa.png'];
+    const papelera = document.getElementById('papelera');
+    let scrolls = 0;
+    let blurAmount = 0; // empieza limpio
+
+    window.addEventListener('scroll', () => {
+      scrolls++;
+
+      // crear basura aleatoria
+      const img = document.createElement('img');
+      img.src = 'img/' + basura[Math.floor(Math.random() * basura.length)];
+      img.className = 'trash';
+      img.style.top = window.scrollY + Math.random() * window.innerHeight + 'px';
+      img.style.left = Math.random() * window.innerWidth + 'px';
+      img.style.transform = `rotate(${Math.random() * 360}deg)`;
+      papelera.appendChild(img);
+
+      // limitar cantidad de basura
+      const MAX_TRASH = 500;
+      if (papelera.children.length > MAX_TRASH) {
+        papelera.removeChild(papelera.firstChild);
+      }
+
+      // aplicar blur progresivo
+      blurAmount = Math.min(scrolls / 50, 6); // aumenta lentamente
+      document.body.style.filter = `blur(${blurAmount}px)`;
+
+      // efecto "lag" temporal
+      if (scrolls % 80 === 0) {
+        document.body.classList.add('lag');
+        setTimeout(() => document.body.classList.remove('lag'), 1000);
+      }
+    });
+
+    // formulario "resistente"
+// formulario "resistente" -> ahora multiplica la basura al enviar
+const form = document.getElementById('recycleForm');
+
+function spawnTrash(n) {
+  const MAX_TRASH = 800; // tope para no colapsar
+  for (let i = 0; i < n; i++) {
+    const img = document.createElement('img');
+    img.src = 'img/' + basura[Math.floor(Math.random() * basura.length)];
+    img.className = 'trash';
+    img.style.top = (window.scrollY + Math.random() * window.innerHeight) + 'px';
+    img.style.left = (Math.random() * window.innerWidth) + 'px';
+    img.style.transform = `rotate(${Math.random() * 360}deg)`;
+    papelera.appendChild(img);
+  }
+  // eliminar exceso si hay más que el tope
+  while (papelera.children.length > MAX_TRASH) {
+    papelera.removeChild(papelera.firstChild);
+  }
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  // popup informativo (igual que antes)
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.innerHTML = `<p>El plástico no se recicla tan fácilmente...</p>`;
+  document.body.appendChild(popup);
+
+  // intentamos leer un número del textarea para multiplicar el efecto
+  const textarea = form.querySelector('textarea');
+  let userNum = 0;
+  if (textarea) {
+    // extrae dígitos si el usuario escribe "50" o "$50"
+    const digits = (textarea.value || '').replace(/\D/g, '');
+    userNum = digits ? parseInt(digits, 10) : 0;
+  }
+
+  // decide cuánta basura generar:
+  // si el usuario escribió un número, lo multiplicamos para efecto dramático.
+  // si no, usamos un valor por defecto.
+  const BASE = 25; // basura por defecto
+  const multiplier = userNum > 0 ? Math.min(userNum, 200) : 1;
+  const toSpawn = userNum > 0 ? Math.min(BASE * multiplier, 600) : BASE;
+
+  spawnTrash(toSpawn);
+
+  // pequeño feedback visual
+  document.body.classList.add('lag');
+  setTimeout(() => document.body.classList.remove('lag'), 400);
+});
+
+
+    /* --- Overlay radial limpio al inicio --- */
+    const overlay = document.querySelector('.blur-overlay');
+    overlay.style.setProperty('--x', '50%');
+    overlay.style.setProperty('--y', '50%');
+    overlay.style.setProperty('--radius', '400px');
+    overlay.style.setProperty('--blur', '1px'); // sin blur al inicio
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    let targetRadius = 100;
+    let currentRadius = 100;
+    let isDragging = false;
+    const stiffness = 0.18, damping = 0.75, radiusDrag = 1.8;
+    const radiusHover = 100, radiusMin = 50, radiusMax = 300;
+    const trailLifetime = 700;
+    let vx = 0, vy = 0;
+
+    function rafLoop() {
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      vx += dx * stiffness;
+      vy += dy * stiffness;
+      vx *= damping; vy *= damping;
+      currentX += vx; currentY += vy;
+      const dr = (targetRadius - currentRadius) * 0.2;
+      currentRadius += dr;
+      overlay.style.setProperty('--x', `${currentX}px`);
+      overlay.style.setProperty('--y', `${currentY}px`);
+      overlay.style.setProperty('--radius', `${Math.max(radiusMin, Math.min(radiusMax, currentRadius))}px`);
+      requestAnimationFrame(rafLoop);
+    }
+    requestAnimationFrame(rafLoop);
+
+    function createTrail(x, y, size = 24) {
+      const t = document.createElement('div');
+      t.className = 'trail';
+      t.style.left = (x - size/2) + 'px';
+      t.style.top = (y - size/2) + 'px';
+      t.style.width = size + 'px';
+      t.style.height = size + 'px';
+      document.body.appendChild(t);
+      requestAnimationFrame(() => {
+        const scale = isDragging ? 1.6 + Math.random()*0.8 : 1 + Math.random()*0.6;
+        t.style.transform = `scale(${scale}) rotate(${(Math.random()*60 - 30)}deg)`;
+        t.style.opacity = '0.85';
+      });
+      setTimeout(() => {
+        t.classList.add('fade-out');
+        setTimeout(() => t.remove(), 500);
+      }, trailLifetime);
+    }
+
+    function onMove(e) {
+      targetX = e.clientX; targetY = e.clientY;
+      createTrail(e.clientX, e.clientY);
+    }
+    function onDown(e) {
+      isDragging = true; document.body.classList.add('is-dragging');
+      targetRadius = radiusHover * radiusDrag;
+      createTrail(e.clientX, e.clientY, 36);
+    }
+    function onUp(e) {
+      isDragging = false; document.body.classList.remove('is-dragging');
+      targetRadius = radiusHover;
+    }
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mousedown', onDown);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchstart', (ev) => {
+      const t = ev.touches[0]; onDown(t);
+    }, {passive:true});
+    window.addEventListener('touchmove', (ev) => {
+      const t = ev.touches[0]; onMove(t);
+    }, {passive:true});
+    window.addEventListener('touchend', onUp, {passive:true});
+
+    /* --- Popups acumulables --- */
+    const POPUP_LIMIT = 250;
+    let popupCounter = 0;
+
+    function createAdPopup(clientX, clientY) {
+      const pop = document.createElement('div');
+      pop.className = 'ad-popup';
+      pop.dataset.id = ++popupCounter;
+
+      const titles = ['¡Oferta!', 'Nuevo producto', 'No te lo pierdas', 'Sorpresa', 'Compra ahora'];
+      const bodies = [
+        'Botella X99 — 50% de descuento (solo hoy).',
+        'El plástico que nunca muere. Edición limitada.',
+        'Haz clic aquí para descubrir más microplásticos.',
+        'Promoción: bolsas que flotan en tu ecosistema.',
+        'Pack ahorro: 100 tapas + envío gratis.'
+      ];
+      const title = titles[Math.floor(Math.random()*titles.length)];
+      const body = bodies[Math.floor(Math.random()*bodies.length)];
+
+      pop.innerHTML = `
+        <div class="ad-header">
+          <strong>${title}</strong>
+          <button class="ad-close" aria-label="cerrar">✕</button>
+        </div>
+        <div class="ad-body">
+          <p>${body}</p>
+          <button class="ad-cta">Ver más</button>
+        </div>
+      `;
+
+      const margin = 10;
+      const width = 260, height = 140;
+      let left = clientX + (Math.random()*40 - 20);
+      let top = clientY + (Math.random()*40 - 20);
+      left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+      top = Math.max(margin, Math.min(top, window.innerHeight - height - margin));
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+
+      pop.querySelector('.ad-close').addEventListener('click', ev => {
+        ev.stopPropagation();
+        pop.remove();
+      });
+      pop.addEventListener('click', ev => ev.stopPropagation());
+
+      document.body.appendChild(pop);
+      setTimeout(() => pop.classList.add('visible'), 20);
+      if (document.querySelectorAll('.ad-popup').length > POPUP_LIMIT) {
+        const first = document.querySelector('.ad-popup');
+        if (first) first.remove();
+      }
+    }
+
+    window.addEventListener('click', ev => {
+      if (ev.target.closest('.ad-close')) return;
+      createAdPopup(ev.clientX, ev.clientY);
+    });
+  })();
+  </script>
+</body>
 </html>
