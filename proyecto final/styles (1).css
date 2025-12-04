@@ -1,0 +1,184 @@
+/* === RESET === */
+* { margin:0; padding:0; box-sizing: border-box; }
+
+html, body { height:100%; }
+
+/* Fuentes base */
+body {
+  background: linear-gradient(to bottom, #87cefa, #bde0fe);
+  overflow-x: hidden;
+  transition: filter 0.3s ease, transform 0.2s ease;
+}
+
+/* NAVBAR */
+.navbar {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+}
+
+/* SECCIONES */
+section { padding:120px 0; }
+#inicio { background: linear-gradient(180deg,#6ec1ff 0%, #a8ddff 100%); color:#013440; text-align:center; height: 1080px; font-size: larger; }
+#impacto { background: #fff; color:#222; text-align:center; }
+#formulario { background: #f6f7f8; color:#222; text-align:center; }
+
+/* PAPELERA (contenedor de basura acumulada) */
+#papelera {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200vh;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Basura (imagen) */
+.trash {
+  position: absolute;
+  width: 60px;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)) saturate(1.2) brightness(1.05);
+  animation: floaty 8s ease-in-out infinite;
+  transition: transform 0.45s cubic-bezier(.2,.9,.2,1);
+  z-index: 6;
+}
+@keyframes floaty {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-24px) rotate(12deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* POPUP (tipo anuncio) */
+.ad-popup {
+  position: fixed;
+  width: 260px;
+  min-height: 120px;
+  background: linear-gradient(135deg, #fffbec, #fff7f0);
+  border: 2px solid rgba(0,0,0,0.08);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+  border-radius: 12px;
+  padding: 12px;
+  z-index: 1200;
+  transform: scale(0.9) translateY(8px);
+  opacity: 0;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+  pointer-events: auto;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* visible = animación de entrada */
+.ad-popup.visible { transform: scale(1) translateY(0); opacity: 1; }
+
+/* cabecera del ad */
+.ad-popup .ad-header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+.ad-popup .ad-header strong { color:#1b1b1b; font-size:1rem; }
+.ad-popup .ad-close {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #444;
+  padding: 4px 6px;
+  border-radius:6px;
+}
+.ad-popup .ad-close:hover { background: rgba(0,0,0,0.06); }
+
+/* cuerpo CTA */
+.ad-popup .ad-body { color:#333; font-size:0.9rem; }
+.ad-popup .ad-body .ad-cta {
+  margin-top:8px;
+  background: linear-gradient(90deg,#ff6b6b,#ffb36b);
+  border: none;
+  padding: 8px 12px;
+  color: #fff;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow: 0 6px 14px rgba(255,107,107,0.14);
+}
+.ad-popup .ad-body .ad-cta:hover { transform: translateY(-2px); }
+
+/* pequeño parpadeo para que parezcan anuncios molestos */
+.ad-popup.visible {
+  animation: ad-glint 3.2s infinite;
+}
+@keyframes ad-glint {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.06) saturate(1.05); }
+  100% { filter: brightness(1); }
+}
+
+/* overlay radial que desenfoca excepto la "lupa" */
+.blur-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  backdrop-filter: blur(var(--blur, 6px)) saturate(1.05) contrast(1.02);
+  -webkit-backdrop-filter: blur(var(--blur, 6px));
+  -webkit-mask: radial-gradient(circle var(--radius, 100px) at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,1) calc(var(--radius, 100px) + 10px));
+  mask: radial-gradient(circle var(--radius, 100px) at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,1) calc(var(--radius, 100px) + 10px));
+}
+
+/* track/plástico en cursor */
+.trail {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1001;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.02) 60%);
+  mix-blend-mode: screen;
+  transform-origin: center;
+  opacity: 0.9;
+  transition: transform 300ms cubic-bezier(.2,.9,.2,1), opacity 600ms linear;
+  filter: blur(2px) saturate(1.2);
+}
+.trail.fade-out { transform: scale(3) translateY(10px) rotate(10deg); opacity: 0; }
+
+/* efecto "lag" */
+body.lag { transform: scale(0.995); filter: blur(5px) brightness(0.9); transition: transform 0.2s ease; }
+
+h1,h2 {
+  font-family:"Bebas Neue", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 150pt;
+}
+
+h2 {
+  font-size: 60pt;
+}
+
+
+body, p, li, a, button, input, textarea{
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* popup / ad responsive */
+@media (max-width:600px) {
+  .ad-popup { width: 86%; left: 7% !important; right:7% !important; }
+
+  
+}
+
+
+
+
+
+/* utilidad: si cierras, el botón no dispara nuevo popup (handled in JS) */
